@@ -1,0 +1,6 @@
+# JitPack builds this public Bitbucket repo from a git tag (https://jitpack.io).
+# Only the library module is published; the sample app is not built.
+jdk:
+  - openjdk17
+install:
+  - ./gradlew :toterslokalise:publishReleasePublicationToMavenLocal -Pgroup=$GROUP.$ARTIFACT -Pversion=$VERSION
