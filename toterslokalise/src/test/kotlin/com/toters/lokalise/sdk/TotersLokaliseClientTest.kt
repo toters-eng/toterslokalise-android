@@ -133,6 +133,21 @@ public class TotersLokaliseClientTest {
   }
 
   @Test
+  public fun typedPlaceholdersFormatNumbersWithTheClientLocale() {
+    val bundled = MapBundledTranslations(mapOf("en" to mapOf("default" to mapOf(
+      "items" to "You have {0:number} items",
+      "total" to "Total {0:decimal:2}",
+      "mixed" to "{1:number} of {0}",
+      "text" to "{0:number}",
+    ))))
+    val client = client(QueueTransport(), bundled = bundled)
+    assertEquals("You have 1,234 items", client.translation("items", arguments = listOf("1234")))
+    assertEquals("Total 5.00", client.translation("total", arguments = listOf("5")))
+    assertEquals("7 of x", client.translation("mixed", arguments = listOf("x", "7")))
+    assertEquals("abc", client.translation("text", arguments = listOf("abc")))
+  }
+
+  @Test
   public fun localeAwarePluralFormattingUsesOtaCache(): Unit = runTest {
     val plural = OtaPluralMessage(
       variable = "count",
