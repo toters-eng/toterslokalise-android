@@ -16,10 +16,10 @@ dependencyResolutionManagement {
 }
 ```
 
-Module `build.gradle.kts` (use the release tag, e.g. `1.0.0`):
+Module `build.gradle.kts` (use the release tag, e.g. `1.2.0`):
 
 ```kotlin
-implementation("com.github.toters-eng.toterslokalise-android:toterslokalise:1.0.0")
+implementation("com.github.toters-eng.toterslokalise-android:toterslokalise:1.2.0")
 ```
 
 Build status and logs: `https://jitpack.io/#toters-eng/toterslokalise-android`.

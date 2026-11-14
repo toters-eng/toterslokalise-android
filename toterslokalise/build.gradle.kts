@@ -12,7 +12,7 @@ plugins {
 
 // JitPack passes -Pgroup/-Pversion (see jitpack.yml); local builds use the defaults.
 group = providers.gradleProperty("group").orNull ?: "com.toters.lokalise"
-version = providers.gradleProperty("version").orNull ?: "1.0.0"
+version = providers.gradleProperty("version").orNull ?: "1.2.0"
 
 android {
   namespace = "com.toters.lokalise.sdk"
