@@ -396,3 +396,19 @@ public class TotersLokaliseClientTest {
   private fun ByteArray.hash(): String = "sha256:" + MessageDigest.getInstance("SHA-256")
     .digest(this).joinToString("") { "%02x".format(it) }
 }
+
+class ExportedBundledTranslationsTest {
+  @org.junit.Test
+  fun readsExportFilesByNamespace() {
+    val bundled = ExportedBundledTranslations(
+      mapOf(
+        "checkout" to """{"data":{"en-US":{"pay_now":"Pay now"},"ar":{"pay_now":"ادفع الآن"}},"meta":{}}""",
+        "legal" to """{"terms":"Terms"}""",
+      ),
+    )
+    org.junit.Assert.assertEquals("ادفع الآن", bundled.translation("ar", "checkout", "pay_now"))
+    org.junit.Assert.assertEquals("Pay now", bundled.translation("en-US", "checkout", "pay_now"))
+    org.junit.Assert.assertEquals("Terms", bundled.translation("ar", "legal", "terms"))
+    org.junit.Assert.assertNull(bundled.translation("en-US", "checkout", "missing"))
+  }
+}

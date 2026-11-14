@@ -24,7 +24,21 @@ implementation("com.github.toters-eng.toterslokalise-android:toterslokalise:1.0.
 
 Build status and logs: `https://jitpack.io/#toters-eng/toterslokalise-android`.
 
-### Releasing
+### Build-only namespaces
+
+Namespaces marked **Build only** in TotersLokalise are left out of OTA releases.
+Download them in your CI/CD pipeline (one `<namespace>.json` per namespace, from
+`GET /api/v1/projects/{projectId}/translations?environment=production&namespace=<name>&format=json`;
+ready-made Bitbucket and GitHub Actions steps are on the Developer Hub) and bundle them
+with the app. Lookups fall back to these bundled strings.
+
+Write the files to `src/main/assets/toterslokalise`, then:
+
+```kotlin
+val bundled = ExportedBundledTranslations.fromAssets(context.assets, "toterslokalise")
+```
+
+## Releasing
 
 Releases are plain semantic-version git tags (`1.0.1`, no `v`). Merge to `main`,
 then:
