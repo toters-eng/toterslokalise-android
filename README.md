@@ -1,6 +1,8 @@
-# TotersLokalise Android SDK
+# Lingo Rider Android SDK
 
-The Android/Kotlin library implements TotersLokalise OTA protocol v1 for Android API
+> Lingo Rider keeps its technical name `toterslokalise` in packages, modules, classes and settings.
+
+The Android/Kotlin library implements Lingo Rider OTA protocol v1 for Android API
 26+. It is distributed from this public GitHub repository through
 [JitPack](https://jitpack.io), which builds each git tag.
 
@@ -16,17 +18,17 @@ dependencyResolutionManagement {
 }
 ```
 
-Module `build.gradle.kts` (use the release tag, e.g. `1.2.0`):
+Module `build.gradle.kts` (use the release tag, e.g. `1.2.1`):
 
 ```kotlin
-implementation("com.github.toters-eng.toterslokalise-android:toterslokalise:1.2.0")
+implementation("com.github.toters-eng.toterslokalise-android:toterslokalise:1.2.1")
 ```
 
 Build status and logs: `https://jitpack.io/#toters-eng/toterslokalise-android`.
 
 ### Build-only namespaces
 
-Namespaces marked **Build only** in TotersLokalise are left out of OTA releases.
+Namespaces marked **Build only** in Lingo Rider are left out of OTA releases.
 Download them in your CI/CD pipeline (one `<namespace>.json` per namespace, from
 `GET /api/v1/projects/{projectId}/translations?environment=production&namespace=<name>&format=json`;
 ready-made Bitbucket and GitHub Actions steps are on the Developer Hub) and bundle them
