@@ -155,6 +155,18 @@ public class TotersLokaliseClient(private val configuration: TotersLokaliseConfi
       .sortedWith(compareBy({ it.namespace }, { it.key }))
   }
 
+  /**
+   * The release's plural messages as written in Lingo Rider (`{count}`/`{0}` placeholders, one text per
+   * plural form), for apps that read plurals through their own resources (Compose Multiplatform).
+   */
+  public fun pluralTranslations(namespace: String? = null): List<PluralTranslationEntry> = synchronized(stateLock) {
+    val plurals = state?.artifact?.pluralMessages.orEmpty()
+    val names = namespace?.let { listOf(it) } ?: plurals.keys
+    names.flatMap { name ->
+      plurals[name].orEmpty().map { (key, plural) -> PluralTranslationEntry(key, name, plural.variable, plural.forms) }
+    }.sortedWith(compareBy({ it.namespace }, { it.key }))
+  }
+
   public suspend fun supportedLocales(): List<String> {
     val response = configuration.transport.get(
       localesUrl(), requestHeaders(null), configuration.timeoutMillis,
@@ -278,6 +290,15 @@ public class TotersLokaliseClient(private val configuration: TotersLokaliseConfi
 }
 
 public data class TranslationEntry(val key: String, val namespace: String, val value: String)
+
+public data class PluralTranslationEntry(
+  val key: String,
+  val namespace: String,
+  /** The count's placeholder name (`count` in `{count} days`). */
+  val variable: String,
+  /** Text per plural form: `zero`, `one`, `two`, `few`, `many`, `other`. */
+  val forms: Map<String, String>,
+)
 
 private fun pluralCategory(locale: String, count: Double): String {
   val language = locale.replace('_', '-').substringBefore('-').lowercase(Locale.ROOT)

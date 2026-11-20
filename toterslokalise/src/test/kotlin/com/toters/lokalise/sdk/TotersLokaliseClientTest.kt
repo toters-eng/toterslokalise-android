@@ -217,6 +217,11 @@ public class TotersLokaliseClientTest {
       ),
     )
     assertEquals("عنصران", client.translation(fixture.key, fixture.namespace, count = 2.0))
+    assertEquals(
+      listOf(PluralTranslationEntry(fixture.key, fixture.namespace, "count", plural.forms)),
+      client.pluralTranslations(),
+    )
+    assertEquals(emptyList<PluralTranslationEntry>(), client.pluralTranslations("other-namespace"))
   }
 
   @Test
